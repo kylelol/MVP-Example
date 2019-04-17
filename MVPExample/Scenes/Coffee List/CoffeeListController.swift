@@ -34,7 +34,7 @@ extension CoffeeListController {
                 self.coffees = coffees
                 self.tableView.reloadData()
             case .error(let error):
-                print(error)
+                self.displayError(error: error)
             }
             self.displayLoading(isVisible: false)
         }
@@ -68,6 +68,13 @@ private extension CoffeeListController {
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
+    
+    func displayError(error: Error) {
+        let alert = UIAlertController(title: "Error", message: "Somethign went wrong, please try again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
 
 extension CoffeeListController: UITableViewDataSource {
