@@ -13,7 +13,7 @@ class CoffeeListController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var loadingView: UIView!
     
-    private var coffees: [Coffee] = []
+    private var presenter: CoffeeListPresenter!
     
 }
 
@@ -27,19 +27,34 @@ extension CoffeeListController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        displayLoading(isVisible: true)
-        CoffeeService.fetchAvailableCoffees { [unowned self] result in
-            switch result {
-            case .success(let coffees):
-                self.coffees = coffees
-                self.tableView.reloadData()
-            case .error(let error):
-                self.displayError(error: error)
-            }
-            self.displayLoading(isVisible: false)
-        }
+        presenter = CoffeeListPresenterImplementation(view: self)
+        presenter.viewDidLoad()
     }
     
+}
+
+extension CoffeeListController: CoffeeListView {
+   
+    func startLoading() {
+        displayLoading(isVisible: true)
+    }
+    
+    func displayCoffees() {
+        tableView.reloadData()
+        displayLoading(isVisible: false)
+    }
+    
+    func displayRoaster(_ roaster: Roaster) {
+        let alert = UIAlertController(title: "Roaster", message: roaster.name, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func displayError(_ error: Error) {
+        let alert = UIAlertController(title: "Error", message: "Somethign went wrong, please try again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - Helpers
@@ -63,18 +78,6 @@ private extension CoffeeListController {
         )
     }
     
-    func displayRoaster(for coffee: Coffee) {
-        let alert = UIAlertController(title: "Roaster", message: coffee.roaster.name, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func displayError(error: Error) {
-        let alert = UIAlertController(title: "Error", message: "Somethign went wrong, please try again", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
 }
 
 extension CoffeeListController: UITableViewDataSource {
@@ -84,7 +87,7 @@ extension CoffeeListController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return coffees.count
+        return presenter.rowCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,10 +95,7 @@ extension CoffeeListController: UITableViewDataSource {
             preconditionFailure("We must have a coffee cell to continue")
         }
         
-        let coffee = coffees[indexPath.row]
-        coffeeCell.coffeeNameLabel.text = coffee.name
-        coffeeCell.coffeeOriginLabel.text = coffee.origin
-        
+        presenter.configure(cell: coffeeCell, for: indexPath.row)
         return coffeeCell
     }
     
@@ -108,8 +108,7 @@ extension CoffeeListController: UITableViewDataSource {
 extension CoffeeListController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCoffee = coffees[indexPath.row]
-        displayRoaster(for: selectedCoffee)
+        presenter.didSelectRow(at: indexPath.row)
     }
     
 }

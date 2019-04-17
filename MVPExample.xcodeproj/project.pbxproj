@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3D98ECEB2267AD3500B6DBA6 /* CoffeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98ECEA2267AD3500B6DBA6 /* CoffeeTableViewCell.swift */; };
+		3D98ECED2267B11900B6DBA6 /* CoffeePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98ECEC2267B11900B6DBA6 /* CoffeePresenter.swift */; };
+		3D98ECEF2267B48C00B6DBA6 /* CoffeeViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98ECEE2267B48C00B6DBA6 /* CoffeeViewSpy.swift */; };
 		3DB5EA822267A81D00021CE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB5EA812267A81D00021CE4 /* AppDelegate.swift */; };
 		3DB5EA842267A81D00021CE4 /* CoffeeListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB5EA832267A81D00021CE4 /* CoffeeListController.swift */; };
 		3DB5EA872267A81D00021CE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DB5EA852267A81D00021CE4 /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		3D98ECEA2267AD3500B6DBA6 /* CoffeeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeTableViewCell.swift; sourceTree = "<group>"; };
+		3D98ECEC2267B11900B6DBA6 /* CoffeePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeePresenter.swift; sourceTree = "<group>"; };
+		3D98ECEE2267B48C00B6DBA6 /* CoffeeViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeViewSpy.swift; sourceTree = "<group>"; };
 		3DB5EA7E2267A81D00021CE4 /* MVPExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVPExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB5EA812267A81D00021CE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DB5EA832267A81D00021CE4 /* CoffeeListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeListController.swift; sourceTree = "<group>"; };
@@ -104,6 +108,7 @@
 			children = (
 				3DB5EA962267A81F00021CE4 /* MVPExampleTests.swift */,
 				3DB5EA982267A81F00021CE4 /* Info.plist */,
+				3D98ECEE2267B48C00B6DBA6 /* CoffeeViewSpy.swift */,
 			);
 			path = MVPExampleTests;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 				3DB5EA852267A81D00021CE4 /* Main.storyboard */,
 				3DB5EA832267A81D00021CE4 /* CoffeeListController.swift */,
 				3D98ECEA2267AD3500B6DBA6 /* CoffeeTableViewCell.swift */,
+				3D98ECEC2267B11900B6DBA6 /* CoffeePresenter.swift */,
 			);
 			path = "Coffee List";
 			sourceTree = "<group>";
@@ -252,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D98ECED2267B11900B6DBA6 /* CoffeePresenter.swift in Sources */,
 				3DB5EAAB2267A8F600021CE4 /* Result.swift in Sources */,
 				3D98ECEB2267AD3500B6DBA6 /* CoffeeTableViewCell.swift in Sources */,
 				3DB5EAA82267A89400021CE4 /* Roaster.swift in Sources */,
@@ -267,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DB5EA972267A81F00021CE4 /* MVPExampleTests.swift in Sources */,
+				3D98ECEF2267B48C00B6DBA6 /* CoffeeViewSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

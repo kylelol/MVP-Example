@@ -11,24 +11,36 @@ import XCTest
 
 class MVPExampleTests: XCTestCase {
 
+    let coffeeListSpy = CoffeeListViewSpy()
+    var coffeePresenter: CoffeeListPresenterImplementation!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        
+        coffeePresenter = CoffeeListPresenterImplementation(view: coffeeListSpy)
     }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func test_viewDidLoad_CallsStartLoading() {
+        // Given
+        
+        // When
+        coffeePresenter.viewDidLoad()
+        
+        //Then
+        XCTAssertTrue(coffeeListSpy.startLoadingCalled)
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func test_didSelectRow_CallsDisplayRoaster() {
+        // Given
+        let coffee = Coffee(name: "test", origin: "test", process: "test", roaster: Roaster(name: "Roaster", location: "test"))
+        coffeePresenter.coffees = [coffee]
+        
+        // When
+        coffeePresenter.didSelectRow(at: 0)
+        
+        // Then
+        XCTAssertTrue(coffeeListSpy.displayRoasterCalled)
+        XCTAssertEqual(coffeeListSpy.roastersName, "Roaster")
     }
 
 }

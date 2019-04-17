@@ -9,9 +9,24 @@
 import Foundation
 import UIKit
 
-final class CoffeeTableViewCell: UITableViewCell {
+protocol CoffeeCellView {
+    
+    func displayCoffeeName(_ name: String)
+    func dispalyCoffeeOrigin(_ origin: String)
+    
+}
+
+final class CoffeeTableViewCell: UITableViewCell, CoffeeCellView {
     
     @IBOutlet var coffeeNameLabel: UILabel!
     @IBOutlet var coffeeOriginLabel: UILabel!
+    
+    func displayCoffeeName(_ name: String) {
+        coffeeNameLabel.text = name
+    }
+    
+    func dispalyCoffeeOrigin(_ origin: String) {
+        coffeeOriginLabel.text = origin
+    }
     
 }
