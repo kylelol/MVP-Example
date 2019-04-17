@@ -8,12 +8,17 @@
 
 import Foundation
 
-struct CoffeeService {
+protocol CoffeeService {
     
-    static func fetchAvailableCoffees(response: @escaping (Result<[Coffee]>) -> Void) {
+    func fetchAvailableCoffees(response: @escaping (Result<[Coffee]>) -> Void)
+    
+}
+struct CoffeeServiceImplementation: CoffeeService {
+    
+    func fetchAvailableCoffees(response: @escaping (Result<[Coffee]>) -> Void) {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 5.0) {
             DispatchQueue.main.async {
-                let coffees = generateArrayOfCoffees()
+                let coffees = CoffeeServiceImplementation.generateArrayOfCoffees()
                 response(.success(coffees))
             }
         }

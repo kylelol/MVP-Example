@@ -27,7 +27,7 @@ extension CoffeeListController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        presenter = CoffeeListPresenterImplementation(view: self)
+        presenter = CoffeeListPresenterImplementation(view: self, service: CoffeeServiceImplementation())
         presenter.viewDidLoad()
     }
     

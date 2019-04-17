@@ -32,13 +32,16 @@ final class CoffeeListPresenterImplementation: CoffeeListPresenter {
     
     var coffees: [Coffee] = []
     
-    init(view: CoffeeListView?) {
+    private let coffeeService: CoffeeService
+    
+    init(view: CoffeeListView?, service: CoffeeService) {
         self.view = view
+        self.coffeeService = service
     }
     
     func viewDidLoad() {
         view?.startLoading()
-        CoffeeService.fetchAvailableCoffees { [unowned self] result in
+        coffeeService.fetchAvailableCoffees { [unowned self] result in
             switch result {
             case .success(let coffees):
                 self.coffees = coffees

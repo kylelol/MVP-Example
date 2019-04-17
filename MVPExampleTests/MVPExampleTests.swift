@@ -12,12 +12,13 @@ import XCTest
 class MVPExampleTests: XCTestCase {
 
     let coffeeListSpy = CoffeeListViewSpy()
+    let coffeeServiceStub = CoffeeServiceStub()
     var coffeePresenter: CoffeeListPresenterImplementation!
     
     override func setUp() {
         super.setUp()
-        
-        coffeePresenter = CoffeeListPresenterImplementation(view: coffeeListSpy)
+       
+        coffeePresenter = CoffeeListPresenterImplementation(view: coffeeListSpy, service: coffeeServiceStub)
     }
     
     func test_viewDidLoad_CallsStartLoading() {
@@ -28,6 +29,15 @@ class MVPExampleTests: XCTestCase {
         
         //Then
         XCTAssertTrue(coffeeListSpy.startLoadingCalled)
+    }
+    
+    func test_viewDidLoad_DispalyCoffee_CalledOnSuccessfulLoad() {
+        let coffee = Coffee(name: "test", origin: "test", process: "test", roaster: Roaster(name: "Roaster", location: "test"))
+        coffeeServiceStub.resultToBeReturned = .success([coffee])
+        
+        coffeePresenter.viewDidLoad()
+        
+       XCTAssertTrue(coffeeListSpy.displayCoffeeCalled)
     }
     
     func test_didSelectRow_CallsDisplayRoaster() {
