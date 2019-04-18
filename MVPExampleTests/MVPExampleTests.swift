@@ -40,6 +40,18 @@ class MVPExampleTests: XCTestCase {
        XCTAssertTrue(coffeeListSpy.displayCoffeeCalled)
     }
     
+    enum TestError: Error {
+        case error
+    }
+    
+    func test_viewDidLoad_DisplayError_CalledOnError() {
+        coffeeServiceStub.resultToBeReturned = .error(TestError.error)
+        
+        coffeePresenter.viewDidLoad()
+        
+        XCTAssertTrue(coffeeListSpy.displayErrorCalled)
+    }
+    
     func test_didSelectRow_CallsDisplayRoaster() {
         // Given
         let coffee = Coffee(name: "test", origin: "test", process: "test", roaster: Roaster(name: "Roaster", location: "test"))

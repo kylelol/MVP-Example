@@ -14,6 +14,7 @@ class CoffeeListViewSpy: CoffeeListView {
     var startLoadingCalled = false
     var displayRoasterCalled = false
     var displayCoffeeCalled = false
+    var displayErrorCalled = false
     var roastersName = ""
     
     func startLoading() {
@@ -25,7 +26,7 @@ class CoffeeListViewSpy: CoffeeListView {
     }
     
     func displayError(_ error: Error) {
-        
+        displayErrorCalled = true
     }
     
     func displayRoaster(_ roaster: Roaster) {
